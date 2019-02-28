@@ -4,11 +4,27 @@
              xmlns:local="clr-namespace:Swagify"
              x:Class="Swagify.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand" Padding="40, 20">
+            <Label Text="Email" />
+            <Entry x:Name="emailEntry" Placeholder="email" />
+            <Label x:Name="emailErrorlabel"/>
+            <Label Text="Password" />
+            <Entry x:Name="passwordEntry" IsPassword="true"  />
+            <Label x:Name="passwordErrorlabel"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="Signup" Clicked="OnSignupButtonClicked" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="Login" Clicked="OnLoginButtonClicked" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+            <Label x:Name="messageLabel" />
+        </StackLayout>
+    </ContentPage.Content>
 
 </ContentPage>
