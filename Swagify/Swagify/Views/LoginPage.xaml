@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local1="clr-namespace:Swagify;assembly=Swagify"
+             x:Class="Swagify.LoginPage"
+             NavigationPage.HasNavigationBar="False"
+             >
+
+    <ContentPage.Content>
+        <StackLayout 
+            Padding="40, 20"
+            VerticalOptions="Fill"
+            Orientation="Vertical"
+            BackgroundColor="#FFF">
+            <StackLayout
+                Orientation="Vertical"
+                VerticalOptions="CenterAndExpand">
+                <Image 
+                    Source="{local1:EmbeddedImage Swagify.Images.swagify.PNG}"
+                    Margin="0, 0, 0, 20"
+                 />
+                
+                <Label Text="Enter email and password:" 
+                       TextColor="{StaticResource SecondaryColor}" 
+                       Margin="5, 30, 0, 20"/>
+                
+                <Entry x:Name="emailEntry" 
+                       Text="{Binding Email, Mode=TwoWay}"
+                       Placeholder="email"
+                       Margin="5, 0, 0, 20"/>
+                <Entry x:Name="passwordEntry"
+                       Text="{Binding Password, Mode=TwoWay}"
+                       Placeholder="password"
+                       IsPassword="true"
+                       Margin="5, 0, 0, 20"/>
+                <Label x:Name="loginErrorLabel"
+                       Text="{Binding ErrorMessage}"
+                       TextColor="{StaticResource ErrorColor}"
+                       FontSize="Small"
+                       Margin="0, 0, 0, 10"/>
+
+
+                <Button BackgroundColor="{StaticResource PrimaryColor}" 
+                        TextColor="{StaticResource SecondaryColor}" 
+                        Text="Login" 
+                        Command="{Binding LogInCommand}"
+                        />
+
+                <Label x:Name="signupLink"
+                       Margin="0, 20, 0, 0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Don't have an account?  "
+                                  TextColor="{StaticResource SecondaryColor}"/>
+                            <Span Text="Sign up now!" 
+                                  TextColor="{StaticResource PrimaryColor}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToSignupCommand}"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
