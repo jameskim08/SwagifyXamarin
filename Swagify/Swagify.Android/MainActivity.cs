@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Android.App;
 using Android.Content.PM;
@@ -19,6 +19,11 @@ namespace Swagify.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            //LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
+            //    this,
+            //    new UXDivers.Gorilla.Config("Gorilla on jameskim-pc")
+            //      .RegisterAssemblyFromType<Swagify.EmbeddedImage>()
+            //    ));
             LoadApplication(new App());
         }
     }

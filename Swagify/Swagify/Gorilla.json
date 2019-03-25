@@ -1,0 +1,12 @@
+﻿{
+	"navigationPage":{
+		"all": true
+	},
+	"embeddedImage": {
+		"markupExtension": {
+			"name": "EmbeddedImage",
+            "namespace": "Swagify",
+            "assembly": "Swagify",
+		}
+	}
+}

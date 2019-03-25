@@ -2,38 +2,28 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Swagify.APIs
 {
-    class HttpSignupRequest
+    class HttpSignupRequest : BaseHttpRequest
     {
-        public HttpClient client;
+        public HttpSignupRequest(HttpClient httpClient) : base(httpClient) { }
 
-        public HttpSignupRequest(HttpClient httpClient)
+        public async Task<bool> PostAccountCreation(String name, String email, String password)
         {
-            client = httpClient;
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        public async Task<bool> PostAccountCreation(String username, String password)
-        {
-            String uri = "signup";
+            String uri = String.Format("users?email={0}&password={1}&name={2}", email, password, name);
             JObject credentials = new JObject(
-                new JProperty("username", username),
+                new JProperty("name", name),
+                new JProperty("email", email),
                 new JProperty("password", password)
             );
-
-            var json = JsonConvert.SerializeObject(credentials);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = null;
-            response = await client.PostAsync(uri, content);
-
+            HttpResponseMessage response = await PostRequest(uri, credentials);
             return response.IsSuccessStatusCode;
         }
     }
