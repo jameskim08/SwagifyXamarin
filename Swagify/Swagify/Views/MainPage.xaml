@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Swagify.MainPage"
+            xmlns:local1="clr-namespace:Swagify"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            BarBackgroundColor="White"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.BarItemColor="{StaticResource SecondaryColor}"
+            android:TabbedPage.BarSelectedItemColor="{StaticResource PrimaryColor}"
+            Title="Swagify">
+    <!--Pages can be added as references or inline-->
+    <TabbedPage.Resources>
+        <Style TargetType="TabbedPage">
+            <Setter Property="BarBackgroundColor" Value="White"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+        </Style>
+    </TabbedPage.Resources>
+    <local1:SearchPage Title="Search"  Icon="searchicon.png" BindingContext="{Binding SearchPageModel}"/>
+    <local1:WishlistPage Title="Wishlist" Icon="wishlisticon.png" BindingContext="{Binding SearchPageModel}"/>
+</TabbedPage>

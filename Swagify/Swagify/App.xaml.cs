@@ -20,16 +20,14 @@ namespace Swagify
             {
                 BaseAddress = new Uri("http://34.73.210.226/api/")
             };
-
-           
-
+            
             if (string.IsNullOrEmpty(oauthToken))
             {
                 MainPage = new NavigationPage(new LoginPage());
             }
             else
             {
-                MainPage = new NavigationPage(new TabbedPage1());
+                MainPage = new NavigationPage(new MainPage());
             }
 
         }

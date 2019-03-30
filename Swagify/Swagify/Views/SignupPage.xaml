@@ -45,11 +45,10 @@
                        FontSize="Small"
                        Margin="0, 0, 0, 10"/>
 
-
                 <Button BackgroundColor="{StaticResource PrimaryColor}" 
-                        TextColor="{StaticResource SecondaryColor}" 
+                        TextColor="White" 
                         Command="{Binding SignupCommand}"
-                        Text="Signup" />
+                        Text="SIGNUP" />
 
                 <Label x:Name="loginLink"
                        Margin="0, 20, 0, 0">

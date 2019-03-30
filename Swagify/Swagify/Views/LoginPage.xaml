@@ -41,8 +41,8 @@
 
 
                 <Button BackgroundColor="{StaticResource PrimaryColor}" 
-                        TextColor="{StaticResource SecondaryColor}" 
-                        Text="Login" 
+                        TextColor="White" 
+                        Text="LOGIN" 
                         Command="{Binding LogInCommand}"
                         />
 

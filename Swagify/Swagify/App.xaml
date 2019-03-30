@@ -6,7 +6,25 @@
         <!--Colors-->
         <Color x:Key="PrimaryColor">#00A7E1</Color>
         <Color x:Key="SecondaryColor">#25283D</Color>
+        <Color x:Key="TertiaryColor">#66717E</Color>
         <Color x:Key="ErrorColor">#ED4337</Color>
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="BarTextColor" Value="White"/>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BorderRadius" Value="5"/>
+            <Setter Property="HeightRequest" Value="1"/>
+        </Style>
+        <Style x:Key="DangerButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource ErrorColor}"/>
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BorderRadius" Value="5"/>
+            <Setter Property="HeightRequest" Value="1"/>
+        </Style>
 
     </Application.Resources>
 </Application>

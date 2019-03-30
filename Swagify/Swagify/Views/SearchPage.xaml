@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Swagify.SearchPage"
+             x:Name="searchPage"
+             >
+    <ContentPage.Content>
+        <StackLayout
+                Orientation="Vertical"
+                VerticalOptions="StartAndExpand"
+                Padding="0, 20, 0, 0">
+            <Grid
+                Padding="20, 0, 20, 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding Name, StringFormat='Hi {0}!'}" 
+                       TextColor="{StaticResource SecondaryColor}"
+                       FontSize="24"
+                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0, 0, 0, 5"/>
+                <Label Text="What are you looking for today?" 
+                       TextColor="{StaticResource SecondaryColor}"
+                       FontSize="18"
+                       Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="0, 0, 0, 5"/>
+                <Entry Placeholder="NMD MC Tie Die"  
+                       Text="{Binding SearchText, Mode=TwoWay}"
+                       Grid.Row="2" Grid.Column="0"/>
+                <Button Text="SEARCH" 
+                        Grid.Row="2" Grid.Column="1"  
+                        Command="{Binding SearchProductCommand}"
+                        Style="{StaticResource PrimaryButton}" />
+            </Grid>
+            <ListView
+                ItemsSource="{Binding ProductList}"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True" 
+                SelectionMode="None"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame 
+                                HasShadow="True"
+                                Margin="20, 10, 20, 40">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="40" />
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image 
+                                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                        Margin="0, 0, 0, 10"
+                                        HorizontalOptions="Center"
+                                        Source="{Binding ImageUrl}" />
+                                    <Label 
+                                        Text="{Binding Name}"
+                                        TextColor="{StaticResource SecondaryColor}"
+                                        Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2"
+                                        FontSize="24"/>
+                                    <Label 
+                                        Text="{Binding Brand}"
+                                        TextColor="{StaticResource TertiaryColor}"
+                                        Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"
+                                        FontSize="18"/>
+                                    <Label 
+                                        Text="{Binding Price, StringFormat='{0:C2}'}"
+                                        TextColor="{StaticResource TertiaryColor}"
+                                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                        Margin="0, 0, 0, 20"
+                                        FontSize="18"/>
+                                    <Button                              
+                                        Text="Buy now!"
+                                        Grid.Row="4" Grid.Column="0"
+                                        Style="{StaticResource PrimaryButton}" 
+                                        Command="{Binding Path=BindingContext.MoveToBrandCommand, Source={x:Reference searchPage}}"
+                                        CommandParameter="{Binding CheckoutUrl}"
+                                        Margin="0, 0, 5, 0"/>
+                                    <Button 
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        Text="Add to Wishlist"
+                                        Style="{StaticResource PrimaryButton}" 
+                                        Command="{Binding Path=BindingContext.AddToWishlistCommand, Source={x:Reference searchPage}}"
+                                        CommandParameter="{Binding .}"
+                                        Margin="5, 0, 0, 0"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
