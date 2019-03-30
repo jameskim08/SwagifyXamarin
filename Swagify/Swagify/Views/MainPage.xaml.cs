@@ -9,11 +9,12 @@ using Xamarin.Forms.Xaml;
 namespace Swagify
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPage1 : TabbedPage
+    public partial class MainPage : TabbedPage
     {
-        public TabbedPage1 ()
+        public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainPageModel(Navigation, this);
         }
         public async void OnButtonClicked(object sender, EventArgs e)
         {

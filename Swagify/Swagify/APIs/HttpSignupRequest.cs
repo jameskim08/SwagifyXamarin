@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Swagify.APIs
+namespace Swagify
 {
     class HttpSignupRequest : BaseHttpRequest
     {

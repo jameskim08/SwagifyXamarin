@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Swagify.APIs;
+using Swagify;
 using Swagify.Models;
 using System;
 using System.Collections.Generic;

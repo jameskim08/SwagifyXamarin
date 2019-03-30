@@ -1,4 +1,4 @@
-﻿using Swagify.APIs;
+﻿using Swagify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,14 +55,22 @@ namespace Swagify
         {
             if (ValidateEmailAndPass())
             {
-                var success = await signupRequest.PostAccountCreation(name, email, password);
+                var signupSuccess = await signupRequest.PostAccountCreation(name, email, password);
 
-                if (success)
+                if (signupSuccess)
                 {
                     ErrorMessage = "";
-                    httpLoginRequest.GetLoginUser(email, password);
-                    Navigation.InsertPageBefore(new TabbedPage1(), Page);
-                    await Navigation.PopAsync();
+                    var loginSuccess = await httpLoginRequest.GetLoginUser(email, password);
+
+                    if (loginSuccess)
+                    {
+                        Navigation.InsertPageBefore(new MainPage(), Page);
+                        await Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(new LoginPage());
+                    }
                 }
                 else
                 {

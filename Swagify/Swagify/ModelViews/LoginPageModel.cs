@@ -1,4 +1,4 @@
-﻿using Swagify.APIs;
+﻿using Swagify;
 using Swagify.Views;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Swagify
                 if (success)
                 {
                     ErrorMessage = "";
-                    Navigation.InsertPageBefore(new TabbedPage1(), Page);
+                    Navigation.InsertPageBefore(new MainPage(), Page);
                     await Navigation.PopAsync();
                 } else
                 {
