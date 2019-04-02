@@ -3,6 +3,7 @@ using Swagify;
 using Swagify.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Swagify
     {
         public HttpLoginRequest(HttpClient httpClient) : base(httpClient) { }
 
-        public async Task<bool> GetLoginUser(String email, String password)
+        public async Task<HttpStatusCode> GetLoginUser(String email, String password)
         {
             String uri = "token";
 
@@ -53,7 +54,7 @@ namespace Swagify
                 Application.Current.Properties["user"] = user;
             }
 
-            return response.IsSuccessStatusCode;
+            return response.StatusCode;
         }
     }
 }

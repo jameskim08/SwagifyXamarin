@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Swagify.App">
+             x:Class="Swagify.App"
+             xmlns:local="clr-namespace:Swagify;assembly=Swagify">
     <Application.Resources>
         <!--Colors-->
         <Color x:Key="PrimaryColor">#00A7E1</Color>
@@ -9,6 +10,7 @@
         <Color x:Key="TertiaryColor">#66717E</Color>
         <Color x:Key="ErrorColor">#ED4337</Color>
 
+        <!--Styles-->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}"/>
             <Setter Property="BarTextColor" Value="White"/>
@@ -25,6 +27,15 @@
             <Setter Property="BorderRadius" Value="5"/>
             <Setter Property="HeightRequest" Value="1"/>
         </Style>
+        <Style x:Key="LoadingSpinner" TargetType="ActivityIndicator">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="IsRunning" Value="True"/>
+            <Setter Property="Color" Value="{StaticResource TertiaryColor}"/>
+        </Style>
 
+        <!--Converters-->
+        <local:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        <local:ButtonTextConverter x:Key="ButtonTextConverter"/>
     </Application.Resources>
 </Application>

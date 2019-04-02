@@ -24,31 +24,62 @@
                 <Entry x:Name="nameEntry" 
                        Text="{Binding Name, Mode=TwoWay}"
                        Placeholder="name"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20">
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Entry x:Name="emailEntry" 
                        Text="{Binding Email, Mode=TwoWay}"
                        Placeholder="email"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20">
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Entry x:Name="passwordEntry"
                        Text="{Binding Password, Mode=TwoWay}"
                        Placeholder="password"
                        IsPassword="true"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20">
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Entry x:Name="verifyPasswordEntry"
                        Text="{Binding VerifyPassword, Mode=TwoWay}"
                        Placeholder="verify password"
                        IsPassword="true"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20">
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Label x:Name="loginErrorLabel"
                        Text="{Binding ErrorMessage, Mode=TwoWay}"
                        TextColor="{StaticResource ErrorColor}"
                        FontSize="Small"
                        Margin="0, 0, 0, 10"/>
 
-                <Button BackgroundColor="{StaticResource PrimaryColor}" 
+                <StackLayout>
+                    <ActivityIndicator 
+                        IsVisible="{Binding IsLoading}"
+                        Style="{StaticResource LoadingSpinner}" />
+                    <Button BackgroundColor="{StaticResource PrimaryColor}" 
                         TextColor="White" 
                         Command="{Binding SignupCommand}"
-                        Text="SIGNUP" />
+                        Text="SIGNUP"
+                        IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        />
+                </StackLayout>
 
                 <Label x:Name="loginLink"
                        Margin="0, 20, 0, 0">

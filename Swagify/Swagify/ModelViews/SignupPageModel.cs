@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -12,14 +13,17 @@ namespace Swagify
     class SignupPageModel : BaseViewModel
     {
         string name, email, password, verifyPassword, errorMessage;
+        bool isLoading;
         HttpSignupRequest signupRequest = new HttpSignupRequest(App.HttpClient);
         HttpLoginRequest httpLoginRequest = new HttpLoginRequest(App.HttpClient);
 
 
         public SignupPageModel(INavigation navigation, Page page) : base(navigation, page)
         {
+            IsLoading = false;
             this.GoToLoginCommand = new Command(async () => await navigation.PushAsync(new LoginPage()));
             this.SignupCommand = new Command(() => Signup());
+            this.OnFocusCommand = new Command(() => ClearErrorMessage());
             ErrorMessage = "";
         }
 
@@ -55,32 +59,60 @@ namespace Swagify
         {
             if (ValidateEmailAndPass())
             {
-                var signupSuccess = await signupRequest.PostAccountCreation(name, email, password);
+                IsLoading = true;
+                HttpStatusCode signupStatusCode = await signupRequest.PostAccountCreation(name, email, password);
 
-                if (signupSuccess)
+                if (signupStatusCode == HttpStatusCode.Created)
                 {
                     ErrorMessage = "";
-                    var loginSuccess = await httpLoginRequest.GetLoginUser(email, password);
+                    var loginStatusCode = await httpLoginRequest.GetLoginUser(email, password);
 
-                    if (loginSuccess)
+                    if (loginStatusCode == HttpStatusCode.OK)
                     {
                         Navigation.InsertPageBefore(new MainPage(), Page);
                         await Navigation.PopAsync();
+                        IsLoading = false;
                     }
                     else
                     {
                         await Navigation.PushAsync(new LoginPage());
+                        IsLoading = false;
                     }
                 }
-                else
+                else if (signupStatusCode == HttpStatusCode.Conflict)
                 {
+                    IsLoading = false;
                     ErrorMessage = "Email already in use.";
                 } 
+                else
+                {
+                    IsLoading = false;
+                    ErrorMessage = "Something went wrong! Please try again later.";
+                }
             }
+        }
+
+        public void ClearErrorMessage()
+        {
+            ErrorMessage = "";
         }
 
         public ICommand GoToLoginCommand { protected set; get; }
         public ICommand SignupCommand { protected set; get; }
+        public ICommand OnFocusCommand { set; get; }
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                if (isLoading != value)
+                {
+                    isLoading = value;
+                    OnPropertyChanged("IsLoading");
+                }
+            }
+        }
 
         public string Name
         {

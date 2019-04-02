@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Swagify.WishlistPage"
+             xmlns:local="clr-namespace:Swagify;assembly=Swagify"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Name="wishlistPage">
     <ContentPage.Content>
         <StackLayout
@@ -17,73 +19,81 @@
                     TextColor="{StaticResource SecondaryColor}"
                     FontSize="18"
                     Margin="20, 0, 20, 10"/>
-            <ListView
-                ItemsSource="{Binding Wishlist}"
+            <StackLayout
+                Orientation="Vertical"
+                VerticalOptions="Fill">
+                <ActivityIndicator 
+                    IsVisible="{Binding LoadingWishlist}"
+                    Style="{StaticResource LoadingSpinner}" />
+                <ListView
+                IsVisible="{Binding LoadingWishlist, Converter={StaticResource InverseBoolConverter}}"
+                ItemsSource="{Binding Wishlist}"    
                 SelectionMode="None"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True" 
                 SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <local:CardCell  >
+                                <Frame 
                                 HasShadow="True"
                                 Margin="20, 10, 20, 40">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="40" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="40" />
 
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image 
-                                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                        Margin="0, 0, 0, 10"
-                                        HorizontalOptions="Center"
-                                        Source="{Binding ImageUrl}" />
-                                    <Label 
-                                        Text="{Binding Name}"
-                                        TextColor="{StaticResource SecondaryColor}"
-                                        Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2"
-                                        FontSize="24"/>
-                                    <Label 
-                                        Text="{Binding Brand}"
-                                        TextColor="{StaticResource TertiaryColor}"
-                                        Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"
-                                        FontSize="18"/>
-                                    <Label 
-                                        Text="{Binding Price, StringFormat='{0:C2}'}"
-                                        TextColor="{StaticResource TertiaryColor}"
-                                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                        Margin="0, 0, 0, 20"
-                                        FontSize="18"/>
-                                    <Button                              
-                                        Text="Buy now!"
-                                        Grid.Row="4" Grid.Column="0"
-                                        Style="{StaticResource PrimaryButton}" 
-                                        Command="{Binding Path=BindingContext.MoveToBrandCommand, Source={x:Reference wishlistPage}}"
-                                        CommandParameter="{Binding CheckoutUri}"
-                                        Margin="0, 0, 5, 0"/>
-                                    <Button 
-                                        Grid.Row="4"
-                                        Grid.Column="1"
-                                        Text="Delete"
-                                        Style="{StaticResource DangerButton}" 
-                                        Command="{Binding Path=BindingContext.DeleteFromWishlistCommand, Source={x:Reference wishlistPage}}"
-                                        CommandParameter="{Binding .}"
-                                        Margin="5, 0, 0, 0"/>
-                                </Grid>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ffimageloading:CachedImage 
+                                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                            Margin="0, 0, 0, 10"
+                                            HorizontalOptions="Center"
+			                                Source="{Binding ImageUrl}" />
+                                        <Label 
+                                            Text="{Binding Name}"
+                                            TextColor="{StaticResource SecondaryColor}"
+                                            Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2"
+                                            FontSize="24"/>
+                                        <Label 
+                                            Text="{Binding Brand}"
+                                            TextColor="{StaticResource TertiaryColor}"
+                                            Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2"
+                                            FontSize="18"/>
+                                        <Label 
+                                            Text="{Binding Price, StringFormat='{0:C2}'}"
+                                            TextColor="{StaticResource TertiaryColor}"
+                                            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                            Margin="0, 0, 0, 20"
+                                            FontSize="18"/>
+                                        <Button                              
+                                            Text="Buy now!"
+                                            Grid.Row="4" Grid.Column="0"
+                                            Style="{StaticResource PrimaryButton}" 
+                                            Command="{Binding Path=BindingContext.MoveToBrandCommand, Source={x:Reference wishlistPage}}"
+                                            CommandParameter="{Binding CheckoutUri}"
+                                            Margin="0, 0, 5, 0"/>
+                                        <Button 
+                                            Grid.Row="4"
+                                            Grid.Column="1"
+                                            Text="Delete"
+                                            Style="{StaticResource DangerButton}" 
+                                            Command="{Binding Path=BindingContext.DeleteFromWishlistCommand, Source={x:Reference wishlistPage}}"
+                                            CommandParameter="{Binding .}"
+                                            Margin="5, 0, 0, 0"/>
+                                    </Grid>
+                                </Frame>
+                            </local:CardCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
