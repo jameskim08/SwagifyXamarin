@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Swagify.SearchPage"
              x:Name="searchPage"
+             xmlns:local="clr-namespace:Swagify;assembly=Swagify"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              >
     <ContentPage.Content>
         <StackLayout
@@ -34,19 +36,26 @@
                        Text="{Binding SearchText, Mode=TwoWay}"
                        Grid.Row="2" Grid.Column="0"/>
                 <Button Text="SEARCH" 
-                        Grid.Row="2" Grid.Column="1"  
+                        Grid.Row="2" 
+                        Grid.Column="1"
+                        IsVisible="{Binding LoadingProductList, Converter={StaticResource InverseBoolConverter}}"
                         Command="{Binding SearchProductCommand}"
                         Style="{StaticResource PrimaryButton}" />
+                <ActivityIndicator 
+                        IsVisible="{Binding LoadingProductList}"
+                        Grid.Row="2" 
+                        Grid.Column="1"
+                        Style="{StaticResource LoadingSpinner}" />
             </Grid>
             <ListView
                 ItemsSource="{Binding ProductList}"
-                CachingStrategy="RecycleElement"
                 HasUnevenRows="True" 
                 SelectionMode="None"
+                CachingStrategy="RecycleElement"
                 SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <local:CardCell>
                             <Frame 
                                 HasShadow="True"
                                 Margin="20, 10, 20, 40">
@@ -63,11 +72,11 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image 
+                                    <ffimageloading:CachedImage 
                                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                         Margin="0, 0, 0, 10"
                                         HorizontalOptions="Center"
-                                        Source="{Binding ImageUrl}" />
+			                            Source="{Binding ImageUrl}" />
                                     <Label 
                                         Text="{Binding Name}"
                                         TextColor="{StaticResource SecondaryColor}"
@@ -91,17 +100,17 @@
                                         Command="{Binding Path=BindingContext.MoveToBrandCommand, Source={x:Reference searchPage}}"
                                         CommandParameter="{Binding CheckoutUrl}"
                                         Margin="0, 0, 5, 0"/>
-                                    <Button 
+                                    <Button
+                                        Text="Add to Wishlist"
                                         Grid.Row="4"
                                         Grid.Column="1"
-                                        Text="Add to Wishlist"
                                         Style="{StaticResource PrimaryButton}" 
                                         Command="{Binding Path=BindingContext.AddToWishlistCommand, Source={x:Reference searchPage}}"
                                         CommandParameter="{Binding .}"
                                         Margin="5, 0, 0, 0"/>
                                 </Grid>
                             </Frame>
-                        </ViewCell>
+                        </local:CardCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

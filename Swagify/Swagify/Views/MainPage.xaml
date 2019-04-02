@@ -8,6 +8,7 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             android:TabbedPage.BarItemColor="{StaticResource SecondaryColor}"
             android:TabbedPage.BarSelectedItemColor="{StaticResource PrimaryColor}"
+            NavigationPage.HasBackButton="False"
             Title="Swagify">
     <!--Pages can be added as references or inline-->
     <TabbedPage.Resources>

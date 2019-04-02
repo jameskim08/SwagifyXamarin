@@ -21,5 +21,11 @@ namespace Swagify
             await Navigation.PopAsync();
 
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
     }
 }

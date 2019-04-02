@@ -23,28 +23,45 @@
                 <Label Text="Enter email and password:" 
                        TextColor="{StaticResource SecondaryColor}" 
                        Margin="5, 30, 0, 20"/>
-                
+
                 <Entry x:Name="emailEntry" 
                        Text="{Binding Email, Mode=TwoWay}"
                        Placeholder="email"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20"
+                       >
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Entry x:Name="passwordEntry"
                        Text="{Binding Password, Mode=TwoWay}"
                        Placeholder="password"
                        IsPassword="true"
-                       Margin="5, 0, 0, 20"/>
+                       Margin="5, 0, 0, 20">
+                    <Entry.Behaviors>
+                        <local1:EventToCommandBehavior 
+                            EventName="Focused"
+                            Command="{Binding OnFocusCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Label x:Name="loginErrorLabel"
                        Text="{Binding ErrorMessage}"
                        TextColor="{StaticResource ErrorColor}"
                        FontSize="Small"
                        Margin="0, 0, 0, 10"/>
-
-
-                <Button BackgroundColor="{StaticResource PrimaryColor}" 
+                <StackLayout>
+                    <ActivityIndicator 
+                    IsVisible="{Binding IsLoading}"
+                    Style="{StaticResource LoadingSpinner}" />
+                    <Button BackgroundColor="{StaticResource PrimaryColor}" 
                         TextColor="White" 
                         Text="LOGIN" 
+                        IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
                         Command="{Binding LogInCommand}"
                         />
+                </StackLayout>
 
                 <Label x:Name="signupLink"
                        Margin="0, 20, 0, 0">
