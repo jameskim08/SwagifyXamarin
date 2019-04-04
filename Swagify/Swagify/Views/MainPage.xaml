@@ -18,6 +18,9 @@
             <Setter Property="BackgroundColor" Value="White"/>
         </Style>
     </TabbedPage.Resources>
+    <TabbedPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Text="Upgrade" Command="{Binding UpgradeCommand}"/>
+    </TabbedPage.ToolbarItems>
     <local1:SearchPage Title="Search"  Icon="searchicon.png" BindingContext="{Binding SearchPageModel}"/>
     <local1:WishlistPage Title="Wishlist" Icon="wishlisticon.png" BindingContext="{Binding SearchPageModel}"/>
 </TabbedPage>
