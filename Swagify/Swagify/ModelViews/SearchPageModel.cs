@@ -76,7 +76,7 @@ namespace Swagify
 
         private async void SearchProduct()
         {
-            if (SearchText.Length < 3 || string.IsNullOrWhiteSpace(SearchText))
+            if (String.IsNullOrEmpty(SearchText) || String.IsNullOrWhiteSpace(SearchText) || SearchText.Length < 3)
             {
                 await Page.DisplayAlert("Error", "Search must be at least 3 letters.", "OK");
             }
