@@ -16,12 +16,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\premium.png" />
     <None Remove="Images\swagify.PNG" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\premium.png" />
     <EmbeddedResource Include="Images\swagify.PNG" />
   </ItemGroup>
 
