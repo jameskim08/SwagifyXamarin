@@ -5,6 +5,7 @@
             xmlns:local1="clr-namespace:Swagify"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             BarBackgroundColor="White"
+            BackgroundColor="White"
             android:TabbedPage.ToolbarPlacement="Bottom"
             android:TabbedPage.BarItemColor="{StaticResource SecondaryColor}"
             android:TabbedPage.BarSelectedItemColor="{StaticResource PrimaryColor}"

@@ -28,24 +28,31 @@ namespace Swagify
         public async void LogIn()
         {
             {
-                IsLoading = true;
-                HttpStatusCode statusCode = await httpLoginRequest.GetLoginUser(email, password);
-                if (statusCode == HttpStatusCode.OK)
+                if (!String.IsNullOrEmpty(Email) && !String.IsNullOrWhiteSpace(Email) && !String.IsNullOrEmpty(Password) && !String.IsNullOrEmpty(Password))
                 {
-                    ErrorMessage = "";
-                    Navigation.InsertPageBefore(new MainPage(), Page);
-                    await Navigation.PopAsync();
-                    IsLoading = false;
+                    IsLoading = true;
+                    HttpStatusCode statusCode = await httpLoginRequest.GetLoginUser(email, password);
+                    if (statusCode == HttpStatusCode.OK)
+                    {
+                        ErrorMessage = "";
+                        Navigation.InsertPageBefore(new MainPage(), Page);
+                        await Navigation.PopAsync();
+                        IsLoading = false;
+                    }
+                    else if (statusCode == HttpStatusCode.Unauthorized)
+                    {
+                        IsLoading = false;
+                        ErrorMessage = "Invalid email or password.";
+                    }
+                    else
+                    {
+                        IsLoading = false;
+                        ErrorMessage = "Something went wrong. Please try again later.";
+                    }
                 }
-                else if (statusCode == HttpStatusCode.Unauthorized)
-                {
-                    IsLoading = false;
-                    ErrorMessage = "Invalid email or password.";
-                } 
                 else
                 {
-                    IsLoading = false;
-                    ErrorMessage = "Something went wrong. Please try again later.";
+                    ErrorMessage = "Please fill in your email and password.";
                 }
             }
         }
